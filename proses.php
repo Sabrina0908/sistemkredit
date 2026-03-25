@@ -226,9 +226,9 @@ try {
         <section class="card">
             <div class="hero">
                 <p class="eyebrow">Hasil Analisis</p>
-                <h1>Sistem Pakar Penentuan Kelayakan Kredit</h1>
+                <h1>Penentuan Kelayakan Kredit</h1>
                 <p class="description">
-                    Keputusan di bawah ini dihitung langsung dari rule Python yang Anda kirim.
+                    Keputusan di bawah ini dihitung langsung dari rule.
                 </p>
             </div>
 

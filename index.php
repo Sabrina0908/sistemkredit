@@ -68,7 +68,7 @@ try {
             <div class="hero">
                 <h1>Penentuan Kelayakan Kredit Koperasi</h1>
                 <p class="description">
-                    Sistem digunakan untuk menghitung bobot,skor rata-rata, rule keputusan, dan status kelayakan kredit nasabah.
+                    Sistem ini digunakan untuk menghitung bobot,skor rata-rata, rule keputusan, dan status kelayakan kredit nasabah.
                 </p>
             </div>
 
