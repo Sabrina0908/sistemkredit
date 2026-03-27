@@ -1,20 +1,22 @@
 # Sistem Kredit
 
-Web PHP sederhana untuk analisis kelayakan kredit koperasi.
+Web statis untuk analisis kelayakan kredit koperasi. Seluruh perhitungan berjalan langsung di browser, jadi bisa dipublish di GitHub Pages tanpa PHP dan tanpa database.
 
-## Deploy cepat
+## GitHub Pages
 
-### Opsi paling sederhana: Render / Railway via Docker
+Repository ini sudah disiapkan dengan workflow GitHub Pages di `.github/workflows/deploy-pages.yml`.
 
-1. Push repo ini ke GitHub.
-2. Buat service baru dari repository tersebut.
-3. Pilih deploy menggunakan `Dockerfile`.
-4. Deploy.
+Setelah push ke branch `main`:
 
-Tidak ada database dan tidak ada storage persisten yang dibutuhkan. Aplikasi menghitung hasil langsung saat form dikirim.
+1. Buka `Settings` repository di GitHub.
+2. Masuk ke menu `Pages`.
+3. Pada `Source`, pilih `GitHub Actions`.
+4. Tunggu workflow `Deploy GitHub Pages` selesai.
+
+URL publiknya akan berbentuk:
+
+`https://sabrina0908.github.io/sistemkredit/`
 
 ## Jalankan lokal
 
-```bash
-php -S localhost:8000
-```
+Cukup buka `index.html` di browser, atau jalankan server statis sederhana jika ingin.
