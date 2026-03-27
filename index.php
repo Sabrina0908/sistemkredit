@@ -40,18 +40,18 @@ $databaseError = '';
 
 try {
     $connection = getConnection();
-    $result = $connection->query(
+    $statement = $connection->query(
         'SELECT nama, jenis_nasabah, pengajuan, skor_rata_rata, rule_keputusan, keputusan, created_at
          FROM analisis_kredit
          ORDER BY id DESC
          LIMIT 10'
     );
 
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $statement->fetch()) {
         $submissions[] = $row;
     }
 } catch (Throwable $exception) {
-    $databaseError = 'Database belum terhubung. Pastikan MySQL Laragon sedang aktif.';
+    $databaseError = 'Database belum terhubung. Periksa konfigurasi environment server.';
 }
 ?>
 <!DOCTYPE html>

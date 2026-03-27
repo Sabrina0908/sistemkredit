@@ -192,22 +192,20 @@ try {
     $statement = $connection->prepare(
         'INSERT INTO analisis_kredit
         (nama, jenis_nasabah, penghasilan, jaminan, tanggungan, pekerjaan, pengajuan, skor_rata_rata, rule_keputusan, keputusan)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        VALUES (:nama, :jenis_nasabah, :penghasilan, :jaminan, :tanggungan, :pekerjaan, :pengajuan, :skor_rata_rata, :rule_keputusan, :keputusan)'
     );
-    $statement->bind_param(
-        'ssisisidis',
-        $data['nama'],
-        $data['jenis_nasabah'],
-        $data['penghasilan'],
-        $data['jaminan'],
-        $data['tanggungan'],
-        $data['pekerjaan'],
-        $data['pengajuan'],
-        $skorRataRata,
-        $rule,
-        $keputusan
-    );
-    $statement->execute();
+    $statement->execute([
+        'nama' => $data['nama'],
+        'jenis_nasabah' => $data['jenis_nasabah'],
+        'penghasilan' => $data['penghasilan'],
+        'jaminan' => $data['jaminan'],
+        'tanggungan' => $data['tanggungan'],
+        'pekerjaan' => $data['pekerjaan'],
+        'pengajuan' => $data['pengajuan'],
+        'skor_rata_rata' => $skorRataRata,
+        'rule_keputusan' => $rule,
+        'keputusan' => $keputusan,
+    ]);
     $databaseMessage = 'Hasil analisis berhasil disimpan ke database.';
 } catch (Throwable $exception) {
     $databaseMessage = 'Hasil analisis tampil, tetapi data belum tersimpan ke database.';
