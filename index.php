@@ -49,7 +49,7 @@ $error = $_GET['error'] ?? '';
             <div class="hero">
                 <h1>Penentuan Kelayakan Kredit Koperasi</h1>
                 <p class="description">
-                    Sistem ini digunakan untuk menghitung bobot,skor rata-rata, rule keputusan, dan status kelayakan kredit nasabah.
+                    Sistem ini menghitung bobot, skor rata-rata, rule keputusan, dan status kelayakan kredit nasabah.
                 </p>
             </div>
 
