@@ -4,6 +4,3 @@
 /.DS_Store
 Thumbs.db
 *.log
-data/database.sqlite
-data/*.sqlite
-data/*.db

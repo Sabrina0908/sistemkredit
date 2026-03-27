@@ -3,12 +3,3 @@ services:
     name: sistemkredit
     runtime: docker
     plan: free
-    envVars:
-      - key: DB_CONNECTION
-        value: sqlite
-      - key: SQLITE_PATH
-        value: /var/www/html/data/database.sqlite
-    disk:
-      name: sistemkredit-data
-      mountPath: /var/www/html/data
-      sizeGB: 1

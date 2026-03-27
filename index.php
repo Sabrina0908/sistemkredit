@@ -34,25 +34,6 @@ $old = [
 ];
 
 $error = $_GET['error'] ?? '';
-$message = $_GET['message'] ?? '';
-$submissions = [];
-$databaseError = '';
-
-try {
-    $connection = getConnection();
-    $statement = $connection->query(
-        'SELECT nama, jenis_nasabah, pengajuan, skor_rata_rata, rule_keputusan, keputusan, created_at
-         FROM analisis_kredit
-         ORDER BY id DESC
-         LIMIT 10'
-    );
-
-    while ($row = $statement->fetch()) {
-        $submissions[] = $row;
-    }
-} catch (Throwable $exception) {
-    $databaseError = 'Database belum terhubung. Periksa konfigurasi environment server.';
-}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -75,18 +56,6 @@ try {
             <?php if ($error !== ''): ?>
                 <div class="alert alert-error">
                     <?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($message !== ''): ?>
-                <div class="alert alert-success">
-                    <?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($databaseError !== ''): ?>
-                <div class="alert alert-error">
-                    <?php echo htmlspecialchars($databaseError, ENT_QUOTES, 'UTF-8'); ?>
                 </div>
             <?php endif; ?>
 
@@ -149,52 +118,6 @@ try {
 
                 <button type="submit" class="button-primary">Analisis Sekarang</button>
             </form>
-
-            <section class="history">
-                <div class="section-heading">
-                    <h2>Riwayat Analisis</h2>
-                    <p>Sepuluh hasil analisis terakhir yang tersimpan di database.</p>
-                </div>
-
-                <?php if ($submissions === []): ?>
-                    <div class="empty-state">
-                        Belum ada data analisis yang tersimpan.
-                    </div>
-                <?php else: ?>
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Waktu</th>
-                                    <th>Nama</th>
-                                    <th>Jenis</th>
-                                    <th>Pengajuan</th>
-                                    <th>Skor</th>
-                                    <th>Rule</th>
-                                    <th>Keputusan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($submissions as $submission): ?>
-                                    <tr>
-                                        <td><?php echo htmlspecialchars($submission['created_at'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                        <td><?php echo htmlspecialchars($submission['nama'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                        <td><?php echo htmlspecialchars($submission['jenis_nasabah'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                        <td><?php echo htmlspecialchars(formatRupiah((int) $submission['pengajuan']), ENT_QUOTES, 'UTF-8'); ?></td>
-                                        <td><?php echo htmlspecialchars(number_format((float) $submission['skor_rata_rata'], 2, ',', '.'), ENT_QUOTES, 'UTF-8'); ?></td>
-                                        <td><?php echo 'Rule ' . htmlspecialchars((string) $submission['rule_keputusan'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                        <td>
-                                            <span class="badge <?php echo $submission['keputusan'] === 'LAYAK' ? 'badge-success' : ($submission['keputusan'] === 'DIPERTIMBANGKAN' ? 'badge-warning' : 'badge-danger'); ?>">
-                                                <?php echo htmlspecialchars($submission['keputusan'], ENT_QUOTES, 'UTF-8'); ?>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                <?php endif; ?>
-            </section>
         </section>
     </main>
 </body>

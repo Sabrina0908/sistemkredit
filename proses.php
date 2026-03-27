@@ -184,32 +184,6 @@ $skorRataRata = $skorTotal / 5;
 $statusClass = $keputusan === 'LAYAK'
     ? 'status-layak'
     : ($keputusan === 'DIPERTIMBANGKAN' ? 'status-warning' : 'status-tidak');
-
-$databaseMessage = '';
-
-try {
-    $connection = getConnection();
-    $statement = $connection->prepare(
-        'INSERT INTO analisis_kredit
-        (nama, jenis_nasabah, penghasilan, jaminan, tanggungan, pekerjaan, pengajuan, skor_rata_rata, rule_keputusan, keputusan)
-        VALUES (:nama, :jenis_nasabah, :penghasilan, :jaminan, :tanggungan, :pekerjaan, :pengajuan, :skor_rata_rata, :rule_keputusan, :keputusan)'
-    );
-    $statement->execute([
-        'nama' => $data['nama'],
-        'jenis_nasabah' => $data['jenis_nasabah'],
-        'penghasilan' => $data['penghasilan'],
-        'jaminan' => $data['jaminan'],
-        'tanggungan' => $data['tanggungan'],
-        'pekerjaan' => $data['pekerjaan'],
-        'pengajuan' => $data['pengajuan'],
-        'skor_rata_rata' => $skorRataRata,
-        'rule_keputusan' => $rule,
-        'keputusan' => $keputusan,
-    ]);
-    $databaseMessage = 'Hasil analisis berhasil disimpan ke database.';
-} catch (Throwable $exception) {
-    $databaseMessage = 'Hasil analisis tampil, tetapi data belum tersimpan ke database.';
-}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -233,10 +207,6 @@ try {
             <div class="result-box <?php echo $statusClass; ?>">
                 <h2><?php echo htmlspecialchars($keputusan, ENT_QUOTES, 'UTF-8'); ?></h2>
                 <p><?php echo 'Rule ' . htmlspecialchars((string) $rule, ENT_QUOTES, 'UTF-8'); ?> digunakan untuk pengajuan <?php echo htmlspecialchars(formatRupiah($data['pengajuan']), ENT_QUOTES, 'UTF-8'); ?>.</p>
-            </div>
-
-            <div class="alert <?php echo str_contains($databaseMessage, 'berhasil') ? 'alert-success' : 'alert-error'; ?>">
-                <?php echo htmlspecialchars($databaseMessage, ENT_QUOTES, 'UTF-8'); ?>
             </div>
 
             <div class="summary">
@@ -309,7 +279,6 @@ try {
 
             <div class="actions">
                 <a href="index.php" class="button-secondary">Analisis Lagi</a>
-                <a href="index.php?message=<?php echo urlencode($databaseMessage); ?>" class="button-secondary">Lihat Riwayat</a>
             </div>
         </section>
     </main>
